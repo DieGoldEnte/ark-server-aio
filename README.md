@@ -66,21 +66,24 @@ Run this command in your terminal:
 ```
 docker compose up -d
 ```
-🔄 Updates & Maintenance
-Changing Settings
+🔄 Updates & Maintenance                                                                                                        
+
+⚙️ Changing Settings
 To update your server configuration, simply change the values in your docker-compose.yml and run:
 ```
 docker compose up -d
 ```
 The script automatically updates your .ini files on the next boot.
 
-Updating the Game (Steam)
+🔄 Updating the Game (Steam)
+
 To force a game update when a new version is released, delete the server binary and restart:
 ```
 docker exec -it ark-server rm /ark/ShooterGame/Binaries/Linux/ShooterGameServer
 docker restart ark-server
 ```
 📂 Project Structure
+
 entrypoint.sh: The core script handling variables and SteamCMD.
 
 Dockerfile: Defines the environment (Ubuntu & dependencies).
