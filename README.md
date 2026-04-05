@@ -66,9 +66,10 @@ docker compose up -d
 🔄 Updates & Wartung
 Einstellungen ändern
 Ändere einfach die Werte in der docker-compose.yml und führe diesen Befehl aus:
-
-Bash
+```
 docker compose up -d
+```
+
 Spiel-Update erzwingen (Steam)
 Wenn Wildcard ein Update veröffentlicht, lösche die Server-Binary und starte neu:
 ```
