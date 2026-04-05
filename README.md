@@ -95,4 +95,5 @@ Dockerfile: Defines the environment (Ubuntu & dependencies).
 
 docker-compose.yml: Example configuration for users.
 
+---
 Developed by DieGoldente 🦖✨
