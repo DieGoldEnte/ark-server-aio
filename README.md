@@ -2,6 +2,8 @@
 
 A high-performance, lightweight ARK:SE Server based on Docker. This project is designed to make server administration as easy as possible – **no manual editing of .ini files required!**
 
+---
+
 ## 🚀 Features
 * **Smart-Check Boot:** Only downloads the game if files are missing (saves time on restarts).
 * **Easy-Config:** Manage all settings (Multipliers, Passwords, Maps) directly via your `docker-compose.yml`.
@@ -66,6 +68,7 @@ Run this command in your terminal:
 ```
 docker compose up -d
 ```
+---
 🔄 Updates & Maintenance                                                                                                        
 
 ⚙️ Changing Settings
@@ -75,6 +78,7 @@ docker compose up -d
 ```
 The script automatically updates your .ini files on the next boot.
 
+---
 🔄 Updating the Game (Steam)
 
 To force a game update when a new version is released, delete the server binary and restart:
@@ -82,6 +86,7 @@ To force a game update when a new version is released, delete the server binary 
 docker exec -it ark-server rm /ark/ShooterGame/Binaries/Linux/ShooterGameServer
 docker restart ark-server
 ```
+---
 📂 Project Structure
 
 entrypoint.sh: The core script handling variables and SteamCMD.
