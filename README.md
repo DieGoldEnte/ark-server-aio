@@ -1,24 +1,22 @@
 # ark-server-aio
-ARK | Smart-Check Fast Boot | Fully Customizable | Ubuntu 24.04
-Markdown
-# 🦖 ARK: Survival Evolved - All-in-One Docker Server
+🦖 ARK: Survival Evolved - All-in-One Docker Server
+A high-performance, lightweight ARK:SE Server based on Docker. This project is designed to make server administration as easy as possible – no manual editing of .ini files required!
 
-Ein performanter, leichtgewichtiger ARK:SE Server auf Docker-Basis. Dieses Projekt wurde entwickelt, um die Server-Administration so einfach wie möglich zu machen – **kein manuelles Editieren von `.ini`-Dateien nötig!**
+🚀 Features
+Smart-Check Boot: Only downloads the game if files are missing or a manual update is triggered (saves a lot of time on restarts).
 
-## 🚀 Features
-* **Smart-Check Boot:** Lädt das Spiel nur herunter, wenn es fehlt (spart Zeit beim Neustart).
-* **Easy-Config:** Alle wichtigen Einstellungen (Multiplikatoren, Passwörter, Map) direkt über die `docker-compose.yml`.
-* **Gamma-Fix inklusive:** In-Game Gamma-Befehle sind standardmäßig aktiviert.
-* **Leichtgewichtig:** Basierend auf Ubuntu 24.04 LTS.
+Easy-Config: Manage all important settings (Multipliers, Passwords, Maps) directly via your docker-compose.yml environment variables.
 
-Ein performanter, leichtgewichtiger ARK:SE Server auf Docker-Basis. Dieses Projekt wurde entwickelt, um die Server-Administration so einfach wie möglich zu machen – **kein manuelles Editieren von `.ini`-Dateien nötig!**
+Gamma-Fix Included: In-game Gamma commands are enabled by default through our configuration script.
 
----
+Lightweight: Based on the stable Ubuntu 24.04 LTS.
 
-## 🛠️ Schnellstart (Setup)
+🛠️ Quick Start (Setup)
+Prerequisites: Install Docker and Docker Compose on your system.
 
-1. **Voraussetzungen:** Installiere [Docker](https://www.docker.com/) und Docker Compose.
-2. **Datei erstellen:** Erstelle einen Ordner und lege eine `docker-compose.yml` mit folgendem Inhalt an:
+Create a Project Folder: Create a new folder on your PC or Server.
+
+Configuration: Create a file named docker-compose.yml inside that folder and paste the following configuration:
 
 ```
 services:
@@ -66,7 +64,8 @@ volumes:
   ark_data:
 
 ````
-3. Server starten:
+3. Launch the Server: 
+Run the following command in your terminal:
 ```
 docker compose up -d
 ```
