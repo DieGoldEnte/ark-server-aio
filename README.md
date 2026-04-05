@@ -61,26 +61,30 @@ volumes:
   ark_data:
 
 ```
-
-🔄 Updates & Wartung
-Einstellungen ändern
-Ändere einfach die Werte in der docker-compose.yml und führe diesen Befehl aus:
+3. Start the Server:
+Run this command in your terminal:
 ```
 docker compose up -d
 ```
+🔄 Updates & Maintenance
+Changing Settings
+To update your server configuration, simply change the values in your docker-compose.yml and run:
+```
+docker compose up -d
+```
+The script automatically updates your .ini files on the next boot.
 
-Spiel-Update erzwingen (Steam)
-Wenn Wildcard ein Update veröffentlicht, lösche die Server-Binary und starte neu:
+Updating the Game (Steam)
+To force a game update when a new version is released, delete the server binary and restart:
 ```
 docker exec -it ark-server rm /ark/ShooterGame/Binaries/Linux/ShooterGameServer
 docker restart ark-server
 ```
+📂 Project Structure
+entrypoint.sh: The core script handling variables and SteamCMD.
 
-📂 Projekt-Struktur
-entrypoint.sh: Das Herzstück – verarbeitet Variablen und steuert SteamCMD.
+Dockerfile: Defines the environment (Ubuntu & dependencies).
 
-Dockerfile: Definiert die Umgebung (Ubuntu, SteamCMD, Abhängigkeiten).
+docker-compose.yml: Example configuration for users.
 
-docker-compose.yml: Beispiel-Konfiguration für Nutzer.
-
-Entwickelt von DieGoldEnte 🦖✨
+Developed by DieGoldente 🦖✨
