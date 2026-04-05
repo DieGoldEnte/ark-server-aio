@@ -1,24 +1,19 @@
-# ark-server-aio
-🦖 ARK: Survival Evolved - All-in-One Docker Server
-A high-performance, lightweight ARK:SE Server based on Docker. This project is designed to make server administration as easy as possible – no manual editing of .ini files required!
+# 🦖 ARK: Survival Evolved - All-in-One Docker Server
 
+A high-performance, lightweight ARK:SE Server based on Docker. This project is designed to make server administration as easy as possible – **no manual editing of .ini files required!**
 
-🚀 Features
-Smart-Check Boot: Only downloads the game if files are missing or a manual update is triggered (saves a lot of time on restarts).
+## 🚀 Features
+* **Smart-Check Boot:** Only downloads the game if files are missing (saves time on restarts).
+* **Easy-Config:** Manage all settings (Multipliers, Passwords, Maps) directly via your `docker-compose.yml`.
+* **Gamma-Fix Included:** In-game Gamma commands are enabled by default for PvE and PvP.
+* **Lightweight:** Based on the stable Ubuntu 24.04 LTS.
 
-Easy-Config: Manage all important settings (Multipliers, Passwords, Maps) directly via your docker-compose.yml environment variables.
+---
 
-Gamma-Fix Included: In-game Gamma commands are enabled by default through our configuration script.
+## 🛠️ Quick Start (Setup)
 
-Lightweight: Based on the stable Ubuntu 24.04 LTS.
-
-
-🛠️ Quick Start (Setup)
-Prerequisites: Install Docker and Docker Compose on your system.
-
-Create a Project Folder: Create a new folder on your PC or Server.
-
-Configuration: Create a file named docker-compose.yml inside that folder and paste the following configuration:
+1. **Prerequisites:** Install [Docker](https://www.docker.com/) and Docker Compose.
+2. **Create a File:** Create a folder and a file named `docker-compose.yml` with the following content:
 
 ```
 services:
@@ -65,11 +60,6 @@ services:
 volumes:
   ark_data:
 
-````
-3. Launch the Server: 
-Run the following command in your terminal:
-```
-docker compose up -d
 ```
 
 🔄 Updates & Wartung
