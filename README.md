@@ -11,21 +11,7 @@ Ein performanter, leichtgewichtiger ARK:SE Server auf Docker-Basis. Dieses Proje
 * **Gamma-Fix inklusive:** In-Game Gamma-Befehle sind standardmäßig aktiviert.
 * **Leichtgewichtig:** Basierend auf Ubuntu 24.04 LTS.
 
----
-
-## 🛠️ Schnellstart (Setup)
-
-1. **Voraussetzungen:** Installiere [Docker](https://www.docker.com/) und Docker Compose.
-2. **Datei erstellen:** Erstelle einen Ordner und lege eine `docker-compose.yml` mit folgendem Inhalt an:
-# 🦖 ARK: Survival Evolved - All-in-One Docker Server
-
 Ein performanter, leichtgewichtiger ARK:SE Server auf Docker-Basis. Dieses Projekt wurde entwickelt, um die Server-Administration so einfach wie möglich zu machen – **kein manuelles Editieren von `.ini`-Dateien nötig!**
-
-## 🚀 Features
-* **Smart-Check Boot:** Lädt das Spiel nur herunter, wenn es fehlt (spart Zeit beim Neustart).
-* **Easy-Config:** Alle wichtigen Einstellungen (Multiplikatoren, Passwörter, Map) direkt über die `docker-compose.yml`.
-* **Gamma-Fix inklusive:** In-Game Gamma-Befehle sind standardmäßig aktiviert.
-* **Leichtgewichtig:** Basierend auf Ubuntu 24.04 LTS.
 
 ---
 
