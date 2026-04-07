@@ -116,6 +116,7 @@ docker-compose.yml: Example configuration for users.
 If you have any questions, encounter bugs, or want to suggest new features, feel free to reach out:
 
 Discord: diegoldente (Add me directly!)
+
 ---
 
 Developed by DieGoldente 🦖✨
