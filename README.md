@@ -55,7 +55,7 @@ services:
       - ARK_CUDDLE_INTERVAL=0.1
       
       # --- Gamma Fix ---
-      # WICHTIG: PvE nutzt "Disable", PvP nutzt "Enable"!
+      # IMPORTANT: PvE uses "Disable", PvP uses "Enable"!
       - ARK_GameUserSettings_ServerSettings_DisablePvEGamma=False
       - ARK_GameUserSettings_ServerSettings_EnablePvPGamma=True
 
