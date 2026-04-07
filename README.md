@@ -79,6 +79,22 @@ docker compose up -d
 The script automatically updates your .ini files on the next boot.
 
 ---
+🔄 Updating the Server
+To update your Ark server to the latest image, follow these steps:
+
+1. Navigate to your project folder
+You must be in the directory containing your docker-compose.yml file:
+
+Bash
+cd ~/ark-server
+2. Pull & Restart
+Run this one-liner to download the latest image and restart the container:
+´´´
+docker-compose pull && docker-compose up -d
+´´´
+Note: Your game data and configurations will persist, as they are stored in Docker volumes.
+
+---
 🔄 Updating the Game (Steam)
 
 To force a game update when a new version is released, delete the server binary and restart:
