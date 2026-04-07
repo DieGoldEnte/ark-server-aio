@@ -69,5 +69,5 @@ fi
 echo "--- Step 3: Starting ShooterGameServer ---"
 cd "$INSTALL_DIR/ShooterGame/Binaries/Linux" || exit
 
-# Gamma Fix
-exec ./ShooterGameServer ${ARK_MAP:-Fjordur}?listen?SessionName="${ARK_SESSION_NAME}"?ServerPassword=${ARK_SERVER_PASSWORD}?ServerAdminPassword=${ARK_ADMIN_PASSWORD}?MaxPlayers=${ARK_MAX_PLAYERS:-10}?DisablePvEGamma=false?EnablePvPGamma=true -server -log -NoBattlEye
+# VOLLSTÄNDIGER STARTBEFEHL (Inklusive Multiplier & Gamma Fix)
+exec ./ShooterGameServer ${ARK_MAP:-Fjordur}?listen?SessionName="${ARK_SESSION_NAME}"?ServerPassword=${ARK_SERVER_PASSWORD}?ServerAdminPassword=${ARK_ADMIN_PASSWORD}?MaxPlayers=${ARK_MAX_PLAYERS:-10}?XPMultiplier=${ARK_XP_MULTIPLIER:-2.0}?TamingSpeedMultiplier=${ARK_TAMING_MULTIPLIER:-5.0}?HarvestAmountMultiplier=${ARK_HARVEST_MULTIPLIER:-8.0}?DisablePvEGamma=False?EnablePvPGamma=True -server -log -NoBattlEye
