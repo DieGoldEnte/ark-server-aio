@@ -1,90 +1,85 @@
 #!/bin/bash
 
-# --- KONFIGURATION ---
-INSTALL_DIR="/home/lukas/arkserver"
-MAP="Fjordur"
-SESSION_NAME="Lukas_Fjordur_Proxmox"
-ADMIN_PASSWORD="DeinPasswortHier" # <-- PASSWORT EINTRAGEN!
-MAX_PLAYERS=10
+# Define paths
+INSTALL_DIR="/ark"
+CONFIG_DIR="$INSTALL_DIR/ShooterGame/Saved/Config/LinuxServer"
+mkdir -p "$CONFIG_DIR"
 
-echo "--- 0. Festplatten-Check ---"
-# Prüft, ob im Home-Verzeichnis mindestens 30 GB (30000 MB) frei sind
-FREE_SPACE=$(df -m "$HOME" | awk 'NR==2 {print $4}')
-if [ "$FREE_SPACE" -lt 30000 ]; then
-    echo "FEHLER: Zu wenig Speicherplatz! Du hast nur $((FREE_SPACE/1024)) GB frei."
-    echo "ARK benötigt mindestens 30 GB freien Speicher. Bitte erweitere deine Proxmox-VM!"
-    exit 1
-fi
-echo "Speicherplatz okay ($((FREE_SPACE/1024)) GB frei)."
+echo "--- Generating GameUserSettings.ini with Gamma Fix ---"
 
-echo "--- 1. System-Optimierung ---"
-if ! grep -q "fs.file-max=100000" /etc/sysctl.conf; then
-    sudo sh -c 'echo "fs.file-max=100000" >> /etc/sysctl.conf'
-    sudo sysctl -p
-fi
-
-echo "--- 2. Ordner anlegen ---"
-mkdir -p "$INSTALL_DIR/ShooterGame/Binaries/Linux"
-mkdir -p "$INSTALL_DIR/ShooterGame/Saved/Config/LinuxServer"
-mkdir -p "$HOME/steamcmd"
-
-echo "--- 3. SteamCMD herunterladen ---"
-cd "$HOME/steamcmd" || exit
-if [ ! -f "steamcmd.sh" ]; then
-    wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
-    tar -xvzf steamcmd_linux.tar.gz
-fi
-
-echo "--- 4. ARK Server Download ---"
-# Mit der korrekten Server-App-ID (376030)
-./steamcmd.sh +force_install_dir "$INSTALL_DIR" +login anonymous +app_update 376030 validate +quit
-
-echo "--- 5. GameUserSettings.ini schreiben ---"
-cat <<EOF > "$INSTALL_DIR/ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
+# Write GameUserSettings.ini
+cat <<EOF > "$CONFIG_DIR/GameUserSettings.ini"
 [ServerSettings]
-XPMultiplier=1.5
-HarvestAmountMultiplier=8.0
-TamingSpeedMultiplier=5.0
-DifficultyOffset=1.0
-OverrideOfficialDifficulty=5.0
-GlobalSpoilingTimeMultiplier=2.0
+XPMultiplier=${ARK_XP_MULTIPLIER:-2.0}
+TamingSpeedMultiplier=${ARK_TAMING_MULTIPLIER:-5.0}
+HarvestAmountMultiplier=${ARK_HARVEST_MULTIPLIER:-8.0}
+ResourcesRespawnPeriodMultiplier=${ARK_RES_RESPAWN:-0.5}
+PlayerCharacterWaterDrainMultiplier=${ARK_WATER_DRAIN:-0.6}
+PlayerCharacterFoodDrainMultiplier=${ARK_FOOD_DRAIN:-0.6}
+PlayerCharacterHealthRecoveryMultiplier=${ARK_HEALTH_RECOVERY:-2.0}
+DifficultyOffset=1.000000
+OverrideOfficialDifficulty=5.000000
 ShowMapPlayerLocation=True
 ServerCrosshair=True
-ShowFloatingDamageText=True
-GiveDefaultLauncherItems=False
+AllowThirdPersonPlayer=True
 AllowStructureCollision=True
-AlwaysAllowStructurePickup=True
-ResourceNoReplenishRadiusPlayers=0.1
 ResourceNoReplenishRadiusStructures=0.1
-DayTimeSpeedScale=0.5
-NightTimeSpeedScale=2.0
-ServerAdminPassword=$ADMIN_PASSWORD
+ResourceNoReplenishRadiusPlayers=0.1
+ServerAdminPassword=${ARK_ADMIN_PASSWORD:-CHANGE_ME}
+ServerPassword=${ARK_SERVER_PASSWORD:-CHANGE_ME}
+bGiveDefaultSurvivorItems=False
+# GAMMA FIX START
+DisablePvEGamma=False
+DisablePvPGamma=False
+AllowGammaVariable=True
+# GAMMA FIX END
+
+[/Script/ShooterGame.ShooterGameUserSettings]
+MasterAudioVolume=1.000000
+MusicAudioVolume=1.000000
+SFXAudioVolume=1.000000
+VoiceAudioVolume=2.000000
+CharacterAudioVolume=1.000000
+UIScaling=1.000000
+UIQuickbarScaling=0.650000
+CameraShakeScale=0.650000
+bFirstPersonRiding=False
+bThirdPersonPlayer=False
+bInventoryHideUnlearnedEngrams=False
+bShowStatusNotificationMessages=True
+TrueSkyQuality=0.000000
+FOVMultiplier=1.000000
+GroundClutterDensity=0.000000
+bFilmGrain=False
+bMotionBlur=False
+bUseDistanceFieldAmbientOcclusion=False
+bUseSSAO=False
 
 [SessionSettings]
-SessionName=$SESSION_NAME
+SessionName=${ARK_SESSION_NAME:-Community Server}
 
 [/Script/Engine.GameSession]
-MaxPlayers=$MAX_PLAYERS
+MaxPlayers=${ARK_MAX_PLAYERS:-10}
 EOF
 
-echo "--- 6. Game.ini schreiben ---"
-cat <<EOF > "$INSTALL_DIR/ShooterGame/Saved/Config/LinuxServer/Game.ini"
+# Write Game.ini (Breeding & Corpse Locator)
+cat <<EOF > "$CONFIG_DIR/Game.ini"
 [/Script/ShooterGame.ShooterGameMode]
-BabyMatureSpeedMultiplier=10.0
-BabyCuddleIntervalMultiplier=0.1
-BabyImprintAmountMultiplier=10.0
-PerLevelStatsMultiplier_Player[7]=5.0
-PerLevelStatsMultiplier_DinoTamed[7]=5.0
+BabyMatureSpeedMultiplier=${ARK_MATURE_SPEED:-10.0}
+BabyCuddleIntervalMultiplier=${ARK_CUDDLE_INTERVAL:-0.1}
+BabyImprintAmountMultiplier=1.0
+bUseCorpseLocator=True
 EOF
 
-echo "--- 7. Start-Skript erstellen ---"
-cat <<EOF > "$INSTALL_DIR/ShooterGame/Binaries/Linux/start_ark.sh"
-#!/bin/bash
-./ShooterGameServer $MAP?listen?SessionName=$SESSION_NAME?MaxPlayers=$MAX_PLAYERS -server -log -NoBattlEye
-EOF
+echo "--- Configurations written (Gamma enabled) ---"
 
-chmod +x "$INSTALL_DIR/ShooterGame/Binaries/Linux/start_ark.sh"
+# Server installation check (Smart-Check)
+if [ ! -f "$INSTALL_DIR/ShooterGame/Binaries/Linux/ShooterGameServer" ]; then
+    echo "--- Server files not found. Installing... ---"
+    /home/steam/steamcmd/steamcmd.sh +force_install_dir $INSTALL_DIR +login anonymous +app_update 376030 validate +quit
+fi
 
-echo "--------------------------------------------------"
-echo "---               SETUP FERTIG!                ---"
-echo "--------------------------------------------------"
+# Switch to binary directory
+cd "$INSTALL_DIR/ShooterGame/Binaries/Linux" || exit
+
+echo "--- Starting ShooterGameServer ---"
