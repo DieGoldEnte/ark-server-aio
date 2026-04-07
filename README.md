@@ -87,7 +87,7 @@ You must be in the directory containing your docker-compose.yml file:
 ```
 cd ~/ark-server
 ```
-3. Pull & Restart
+2. Pull & Restart
 Run this one-liner to download the latest image and restart the container:
 ```
 docker-compose pull && docker-compose up -d
