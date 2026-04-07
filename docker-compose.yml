@@ -1,21 +1,15 @@
 services:
   ark:
-    # Enter the image and tag here:
     image: diegoldente/ark-aio-server:latest
     container_name: ark-server
-    
-    # Restart policy:
     restart: unless-stopped
-    
     ports:
       - "7777:7777/udp"
       - "7778:7778/udp"
       - "27015:27015/udp"
       - "27020:27020/tcp"
-      
     volumes:
       - ark_data:/ark
-      
     environment:
       # --- General Server Settings ---
       - ARK_MAP=Fjordur
@@ -23,8 +17,12 @@ services:
       - ARK_MAX_PLAYERS=10
       - ARK_SERVER_PASSWORD=yourpassword
       - ARK_ADMIN_PASSWORD=youradminpassword
-      - ARK_PVE=False  # Set to True for PvE Mode
+      - ARK_PVE=False  
       
+      # --- Difficulty Settings ---
+      - ARK_DIFFICULTY_OFFSET=1.0
+      - ARK_OVERRIDE_DIFFICULTY=5.0
+
       # --- Multipliers & Survival ---
       - ARK_XP_MULTIPLIER=2.0
       - ARK_TAMING_MULTIPLIER=5.0
@@ -36,10 +34,10 @@ services:
       - ARK_MATURE_SPEED=10.0
       - ARK_CUDDLE_INTERVAL=0.1
       
-      # --- Gamma Fix (Enable in-game gamma commands) ---
-      # These match the logical checks in your entrypoint.sh
+      # --- Gamma Fix ---
+      # WICHTIG: PvE nutzt "Disable", PvP nutzt "Enable"!
       - ARK_GameUserSettings_ServerSettings_DisablePvEGamma=False
-      - ARK_GameUserSettings_ServerSettings_DisablePvPGamma=False
+      - ARK_GameUserSettings_ServerSettings_EnablePvPGamma=True
 
 volumes:
   ark_data:
