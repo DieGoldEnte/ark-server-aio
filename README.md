@@ -24,7 +24,7 @@ services:
     image: diegoldente/ark-aio-server:latest
     container_name: ark-server
     
-    # Restart policy (keeps the server running after crashes or reboots):
+    # Restart policy:
     restart: unless-stopped
     
     ports:
@@ -43,6 +43,7 @@ services:
       - ARK_MAX_PLAYERS=10
       - ARK_SERVER_PASSWORD=yourpassword
       - ARK_ADMIN_PASSWORD=youradminpassword
+      - ARK_PVE=False  # Set to True for PvE Mode
       
       # --- Multipliers & Survival ---
       - ARK_XP_MULTIPLIER=2.0
@@ -56,12 +57,12 @@ services:
       - ARK_CUDDLE_INTERVAL=0.1
       
       # --- Gamma Fix (Enable in-game gamma commands) ---
+      # These match the logical checks in your entrypoint.sh
       - ARK_GameUserSettings_ServerSettings_DisablePvEGamma=False
       - ARK_GameUserSettings_ServerSettings_DisablePvPGamma=False
 
 volumes:
   ark_data:
-
 ```
 3. Start the Server:
 Run this command in your terminal:
